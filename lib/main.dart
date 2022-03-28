@@ -9,10 +9,13 @@
 // @19.9 GetX Controller
 
 
+import 'package:a19_blog_post_api/data/api_service/post_api_service.dart';
 import 'package:a19_blog_post_api/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
+  Get.put(PostApiService());
   runApp(const MyApp());
 }
 
