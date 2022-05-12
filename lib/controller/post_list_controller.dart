@@ -5,11 +5,17 @@ import 'package:get/get.dart';
 class PostListController extends GetxController {
   PostApiService _postApiService = Get.find();
   Rx<PostListState> postListState = PostListState().obs;
+  @override
+  void onInit() {
+    super.onInit();
+    getAllPosts();
+  }
+
   void getAllPosts() {
     postListState.value = PostListLoading();
     _postApiService.getAllPosts().then((postLists) {
       postListState.value = PostListSuccess(postLists);
-    }).catchError(() {
+    }).catchError((e) {
       postListState.value = PostListError();
     });
   }
@@ -17,11 +23,21 @@ class PostListController extends GetxController {
 
 class PostListState {}
 
-class PostListLoading extends PostListState {}
+class PostListLoading extends PostListState {
+  PostListLoading() {
+    print('PostList _ Loading');
+  }
+}
 
 class PostListSuccess extends PostListState {
   final List<PostListModel> postLists;
-  PostListSuccess(this.postLists);
+  PostListSuccess(this.postLists) {
+    print('PostList _ Success');
+  }
 }
 
-class PostListError extends PostListState {}
+class PostListError extends PostListState {
+  PostListError() {
+    print('PostList _ Error');
+  }
+}
